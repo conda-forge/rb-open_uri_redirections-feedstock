@@ -10,18 +10,18 @@ source:
     sha256: 39e629b006b1d8f90dcc3e76908fc2df36365cb25a8fc525283e57017b2bc04e
 
 build:
-  number: 0
+  noarch: generic
+  number: 1
   script:
     - gem install -N -l -V --norc --ignore-dependencies {{ name }}-{{ version }}.gem
     - gem unpack {{ name }}-{{ version }}.gem
     - cp {{ name }}-*/LICENSE.txt .
-  skip: true  # [win]
 
 requirements:
   host:
-    - ruby >=2.5,<2.6
+    - ruby >=2.7,<3
   run:
-    - ruby >=2.5,<2.6
+    - ruby >=2.7,<3
 
 test:
   commands:
