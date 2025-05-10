@@ -1,0 +1,44 @@
+schema_version: 1
+
+context:
+  name: open_uri_redirections
+  version: 0.2.1
+
+package:
+  name: rb-${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  - url: https://rubygems.org/downloads/${{ name }}-${{ version }}.gem
+    sha256: 39e629b006b1d8f90dcc3e76908fc2df36365cb25a8fc525283e57017b2bc04e
+
+build:
+  number: 2
+  noarch: generic
+  script:
+    - gem install -N -l -V --norc --ignore-dependencies ${{ name }}-${{ version }}.gem
+    - gem unpack ${{ name }}-${{ version }}.gem
+    - cp ${{ name }}-*/LICENSE.txt .
+
+requirements:
+  host:
+    - ruby >=2.7,<3
+  run:
+    - ruby >=2.7,<3
+
+tests:
+  - script:
+      - ruby -r ${{ name }} -e 'exit 0'
+
+about:
+  license: MIT
+  license_file: LICENSE.txt
+  summary: OpenURI patch to allow redirections between HTTP and HTTPS
+  homepage: https://rubygems.org/gems/${{ name }}
+  repository: https://github.com/open-uri-redirections/open_uri_redirections
+  documentation: https://www.rubydoc.info/gems/open_uri_redirections
+
+extra:
+  recipe-maintainers:
+    - svengiegerich
+    - janjagusch
